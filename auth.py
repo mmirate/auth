@@ -27,7 +27,7 @@ def get_variables():
 	tty = str(subprocess.Popen(['tty'],stdout=PIPE).communicate()[0]).strip()
 	display = getdisplay().strip()
 	if tty.startswith('not a tty'):
-		for doc in (plumbum.local[os.getenv('HOME')+'/bin/session-getter.pl'])().splitlines(): # TODO: include session-getter.pl
+		for doc in (plumbum.local[os.getenv('HOME')+'/bin/session-getter.pl'])().splitlines():
 			if doc.strip():
 				try:
 					sess = json.loads(doc)
