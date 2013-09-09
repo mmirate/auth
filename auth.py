@@ -5,6 +5,10 @@ import six, subprocess, plumbum, os, json, re, sys
 import gnupg
 #import plac # someday ... I might get around to using this ...
 #from plumbum.cmd import getdisplay, tty, sponge
+
+for n in filter(lambda x: x.split(' ')[0] == 'add_to_path',open(os.path.expanduser('~/.profile'))):
+	plumbum.local.env.path.append(os.path.expanduser(n.split(' ')[1].strip()))
+
 for n in 'getdisplay, tty'.split(', '):
 	globals()[n] = plumbum.local[plumbum.local.which(n)]
 
