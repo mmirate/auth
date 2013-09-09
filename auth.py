@@ -21,13 +21,13 @@ class GPGError(IOError):
 
 def get_variables():
 	hostname = subprocess.Popen(['uname','-n'],stdout=PIPE).communicate()[0].decode('utf-8').strip()
-	agent_info = list(filter(bool,map(lambda x: re.match('GPG_AGENT_INFO=(.+)',x), open(os.path.join(os.getenv('HOME'), '.gnupg', '.gpg-agent-info')).readlines())))[0].groups()[0]
+	agent_info = list(filter(bool,map(lambda x: re.match('GPG_AGENT_INFO=([^;]+)',x), open(os.path.join(os.getenv('HOME'),'.keychain',hostname+'-sh-gpg')).readlines())))[0].groups()[0]
 	ssh_auth_sock = list(filter(bool,map(lambda x: re.match('SSH_AUTH_SOCK=([^;]+)',x), open(os.path.join(os.getenv('HOME'),'.keychain',hostname+'-sh')).readlines())))[0].groups()[0]
 	ssh_agent_pid = list(filter(bool,map(lambda x: re.match('SSH_AGENT_PID=([^;]+)',x), open(os.path.join(os.getenv('HOME'),'.keychain',hostname+'-sh')).readlines())))[0].groups()[0]
 	tty = str(subprocess.Popen(['tty'],stdout=PIPE).communicate()[0]).strip()
 	display = getdisplay().strip()
 	if tty.startswith('not a tty'):
-		for doc in (plumbum.local[os.getenv('HOME')+'/Development/Perl/loginctl_parser.pl'])().splitlines(): # TODO: include loginctl_parser.pl
+		for doc in (plumbum.local[os.getenv('HOME')+'/bin/session-getter.pl'])().splitlines(): # TODO: include session-getter.pl
 			if doc.strip():
 				try:
 					sess = json.loads(doc)
