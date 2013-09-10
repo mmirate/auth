@@ -8,7 +8,8 @@ For copyright information see `LICENSE`.
 To Use
 ------
 
-Symlink all of the Python scripts and the bash script into your home directory, then arrange for the bash script to be sourced in your `~/.profile`.
+1. Install and use Funtoo's `keychain` program.
+2. Symlink all of the Python scripts and the bash script into your home directory, then arrange for the bash script to be sourced in your `~/.profile`.
 
 TODO
 ----
